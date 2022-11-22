@@ -35,8 +35,28 @@ public class LoginTests {
     }
 
     @Test
-    public void loginSWrongEmail() throws IOException {
+    public void loginWrongEmail() throws IOException {
         AuthRequestDto auth = AuthRequestDto.builder().username("evnikelgmail.com").password("Elena1234$@").build();
+
+        RequestBody body = RequestBody.create(Provider.getInstance().getGson().toJson(auth),Provider.getInstance().getJson());
+        Request request = new Request.Builder()
+                .url("https://contactapp-telran-backend.herokuapp.com/v1/user/login/usernamepassword")
+                .post(body)
+                .build();
+
+        Response response = Provider.getInstance().getClient().newCall(request).execute();
+
+        Assert.assertFalse(response.isSuccessful());
+        Assert.assertEquals(response.code(),401);
+
+        ErrorDto errorDto = Provider.getInstance().getGson().fromJson(response.body().string(),ErrorDto.class);
+        Object message = errorDto.getMessage();
+        Assert.assertEquals(message,"Login or Password incorrect");
+        Assert.assertEquals(errorDto.getStatus(),401);
+    }
+    @Test
+    public void loginWrongEPassword() throws IOException {
+        AuthRequestDto auth = AuthRequestDto.builder().username("evnikel@gmail.com").password("Ele").build();
 
         RequestBody body = RequestBody.create(Provider.getInstance().getGson().toJson(auth),Provider.getInstance().getJson());
         Request request = new Request.Builder()
