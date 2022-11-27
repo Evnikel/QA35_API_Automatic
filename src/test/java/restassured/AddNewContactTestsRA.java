@@ -63,7 +63,7 @@ public class AddNewContactTestsRA {
                 .then()
                 .assertThat().statusCode(400)
                 .assertThat().body("error",containsString("Bad Request"))
-                .assertThat().body("message.name",containsString("must not be blank"));
+                .assertThat().body("message.lastName",containsString("must not be blank"));
     }
 
     @Test
