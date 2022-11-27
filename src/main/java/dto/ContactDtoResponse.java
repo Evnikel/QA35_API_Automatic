@@ -10,6 +10,6 @@ import lombok.ToString;
 @ToString
 @Builder
 
-public class ContactResponseDto {
+public class ContactDtoResponse {
     private String message;
 }
