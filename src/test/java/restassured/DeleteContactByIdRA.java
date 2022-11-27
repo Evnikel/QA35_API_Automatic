@@ -59,4 +59,40 @@ public class DeleteContactByIdRA {
 
 
     }
+
+    @Test
+    public void deleteContactByWrongIdContactFormatError(){
+        given()
+                .header("Authorization",token)
+                .when()
+                .delete("contacts/"+"52")
+                .then()
+                .assertThat().statusCode(400)
+                .assertThat().body("error",containsString("Bad Request"))
+                .assertThat().body("message",containsString("Contact with id: 52 not found in your contacts!"));
+    }
+
+    @Test
+    public void deleteContactsByIdUnauthorized(){
+        given()
+                .header("Authorization","fghjbgbn")
+                .when()
+                .delete("contacts/"+id)
+                .then()
+                .assertThat().statusCode(401)
+                .assertThat().body("error",containsString("Unauthorized"))
+                .assertThat().body("message",containsString("JWT strings must contain exactly 2 period characters. Found: 0"));
+    }
+    @Test(enabled = false,  description = "Bag BUG - 400 code instead of 404")
+    public void deleteContactsByIdContactNotFound(){
+        given()
+                .header("Authorization",token)
+                .when()
+                .delete("contacts/b82f21de-0269-4a8f-91f6-22dfedc08ahh")
+                .then()
+                .assertThat().statusCode(404)
+                .assertThat().body("error",containsString("Bad Request"))
+                .assertThat().body("message",containsString("Contact with id: b82f21de-0269-4a8f-91f6-22dfedc08ahh not found in your contacts!"));
+
+    }
 }

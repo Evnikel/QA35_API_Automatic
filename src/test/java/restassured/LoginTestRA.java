@@ -71,4 +71,23 @@ public class LoginTestRA {
 
 
     }
+
+    @Test
+    public void loginWrongPassword(){
+        AuthRequestDto auth = AuthRequestDto.builder().username("evnikel@gmail.com").password("Elena1234$").build();
+
+        given()
+                .body(auth)
+                .contentType("application/json")
+                .when()
+                .post("user/login/usernamepassword")
+                .then()
+                .assertThat().statusCode(401)
+                .assertThat().body("message",containsString("Login or Password incorrect"))
+                .assertThat().body("status",equalTo(401));
+
+
+
+
+    }
 }
