@@ -15,7 +15,7 @@ public class GetAllContact {
 
     @Test
     public void getAllContactsSuccess() throws IOException {
-        Request request = new Request.Builder()
+        Request request = new Builder()
                 .url("https://contactapp-telran-backend.herokuapp.com/v1/contacts")
                 .addHeader("Authorization",token)
                 .get()
@@ -44,4 +44,6 @@ public class GetAllContact {
         Assert.assertFalse(response.isSuccessful());
         Assert.assertEquals(response.code(),401);
     }
+
+
 }

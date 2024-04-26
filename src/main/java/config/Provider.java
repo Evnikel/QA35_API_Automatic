@@ -1,14 +1,15 @@
 package config;
 
 import com.google.gson.Gson;
-import okhttp3.MediaType;
 import okhttp3.OkHttpClient;
 import okhttp3.logging.HttpLoggingInterceptor;
+
+import java.awt.*;
 
 public class Provider {
     private static final Provider instance = new Provider();
 
-    private static final MediaType JSON=MediaType.get("application/json;charset=utf-8");
+    private static final PageAttributes.MediaType JSON= PageAttributes.MediaType.get("application/json;charset=utf-8");
     private Gson gson = new Gson();
     private OkHttpClient client;
 
@@ -36,7 +37,7 @@ public class Provider {
         return gson;
     }
 
-    public MediaType getJson(){
+    public PageAttributes.MediaType getJson(){
         return JSON;
     }
 

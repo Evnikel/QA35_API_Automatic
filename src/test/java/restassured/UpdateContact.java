@@ -1,8 +1,8 @@
 package restassured;
 
 import com.jayway.restassured.RestAssured;
-import com.jayway.restassured.http.ContentType;
 import dto.ContactDto;
+import jdk.jfr.ContentType;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
